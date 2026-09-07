@@ -11,14 +11,23 @@ const fs = require("fs");
 const app = express();
 
 // CORS Middleware
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://stupendous-croissant-ed072e.netlify.app",
+  "https://frontend.systemmanager.in/vpfinance",
+  "https://vp-finance-client-ayush-2026.onrender.com",
+  process.env.DOMAIN_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://stupendous-croissant-ed072e.netlify.app",
-      "http://localhost:3001",
-      "https://frontend.systemmanager.in/vpfinance",
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".onrender.com")) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
