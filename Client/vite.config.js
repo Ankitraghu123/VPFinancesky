@@ -24,7 +24,7 @@ export default defineConfig({
     host: true,
     proxy: {
       "/api": {
-        target: "https://vpfinancefinalv2-production.up.railway.app/",
+        target: "https://vp-finance-api.onrender.com",
         //target: "http://localhost:6060",
         changeOrigin: true,
         secure: false,
